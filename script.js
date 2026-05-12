@@ -17,11 +17,12 @@ function updateCalc(){
   const bill=parseInt(slider.value);
   billVal.textContent='Ksh '+bill.toLocaleString();
   let rec,desc,cost,waMsg;
-  if(bill<4000){rec='1.5kW Basic Backup System';desc='Covers lights, fan, TV, Wi-Fi & phone charging for a 1–2 bedroom home.';cost=85000;waMsg='1.5kW Basic system';}
-  else if(bill<10000){rec='3kW Hybrid System';desc='Perfect for a 3-bedroom home. Covers lights, fridge, TV, Wi-Fi & fans.';cost=280000;waMsg='3kW Hybrid system';}
-  else if(bill<20000){rec='5kW Family Comfort System';desc='Handles fridge, microwave, washing machine + all standard loads.';cost=380000;waMsg='5kW Family Comfort system';}
-  else if(bill<35000){rec='10kW Off-Grid Master System';desc='Full independence from KPLC. Ideal for large homes or small businesses.';cost=700000;waMsg='10kW Off-Grid system';}
-  else{rec='20kW+ Commercial System';desc='Enterprise-grade solar for high-consumption businesses, schools, or clinics.';cost=1500000;waMsg='20kW Commercial system';}
+  if(bill<=3000){rec='PowerPlay';desc='Ideal for small apartments. Powers lights, TV, Wi-Fi, and phone charging.';cost=90000;waMsg='PowerPlay system';}
+  else if(bill<=6000){rec='PowerHub 3.3kW';desc='Perfect for 1-2 bedroom homes. Covers lights, fridge, TV, Wi-Fi, and fans.';cost=208000;waMsg='PowerHub 3.3kW system';}
+  else if(bill<=10000){rec='PowerHub 5kW';desc='Great for 3-bedroom homes. Handles fridge, microwave, washing machine, and all standard loads.';cost=345000;waMsg='PowerHub 5kW system';}
+  else if(bill<=20000){rec='PowerHub 10kW';desc='Ideal for large homes or small businesses. Covers all appliances with room to grow.';cost=707000;waMsg='PowerHub 10kW system';}
+  else if(bill<=30000){rec='PowerHub 15kW';desc='Designed for large compounds or growing businesses. Near-complete grid independence.';cost=900000;waMsg='PowerHub 15kW system';}
+  else{rec='PowerHub 20kW';desc='Enterprise-grade system for high-consumption businesses, schools, or clinics.';cost=1200000;waMsg='PowerHub 20kW system';}
   sysRec.textContent='Recommended: '+rec;
   sysDesc.textContent=desc;
   sysCost.textContent='Ksh '+cost.toLocaleString();

@@ -60,3 +60,5 @@ if(processSection){
   },{threshold:0.3});
   processObserver.observe(processSection);
 }
+
+document.querySelectorAll('.current-year').forEach(el=>el.textContent=new Date().getFullYear());

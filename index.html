@@ -34,7 +34,7 @@
         <h1 class="hero-title">Power Your Home with <em>Kenya's Best</em> Solar Solutions</h1>
         <p class="hero-sub">Stop worrying about blackouts and rising KPLC bills. We provide Tier-1 solar installations with 25-year warranties — serving Nairobi, Mombasa, Kisumu & all over the country.</p>
         <div class="hero-btns">
-          <a href="https://wa.me/254727895108?text=Hi%2C%20I%27d%20like%20a%20free%20solar%20quote!" class="btn-wa" target="_blank"><i class="fa-brands fa-whatsapp"></i> Get a Free Quote on WhatsApp</a>
+          <a href="javascript:void(0)" class="btn-wa" onclick="openCalculatorPopup();return false;"><i class="fa-solid fa-calculator"></i> Get Quote </a>
           <a href="#products" class="btn-outline"><i class="fa-solid fa-cart-shopping"></i> View Shop</a>
         </div>
       </div>
@@ -206,6 +206,7 @@
           </div>
         </div>
         <a id="calc-wa" href="https://wa.me/254727895108?text=Hi%2C%20I%20spend%20Ksh%208%2C000%20monthly%20on%20KPLC.%20I%27d%20like%20to%20discuss%20a%203kW%20system!" class="btn-wa-sm" target="_blank" style="margin-top:8px"><i class="fa-brands fa-whatsapp"></i> Discuss This System on WhatsApp</a>
+        <button class="btn-wa-sm" onclick="openCalculatorPopup()" style="margin-top:10px;border:none;width:100%"><i class="fa-solid fa-calculator"></i> Use detailed load calculator</button>
       </div>
     </div>
   </div>
@@ -712,4 +713,536 @@
 </a>
 
 <script src="script.js"></script>
-</html>
+
+<!-- POPUP: Solar Load Calculator + Leads Form -->
+<div class="popup-overlay" id="calculatorPopup" style="display:none">
+  <div class="popup-modal">
+    <button class="popup-close" onclick="closeCalculatorPopup()" aria-label="Close">&times;</button>
+
+    <div class="calc-leads">
+
+      <h2 class="sr-only">Solar load calculator and lead capture form for SunPro</h2>
+
+      <div class="tab-bar" id="tabBar">
+        <div class="tab active" onclick="switchTab('calc')">
+          <i class="fa-solid fa-bolt" style="font-size:15px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>Load calculator
+        </div>
+        <div class="tab" onclick="switchTab('leads')">
+          <i class="fa-solid fa-user" style="font-size:15px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>Get a quote
+        </div>
+      </div>
+
+      <!-- CALCULATOR TAB -->
+      <div id="calcTab">
+
+        <div class="section-label">Quick-add common appliances</div>
+        <div class="preset-grid" id="presetGrid"></div>
+
+        <div class="add-row" id="addRow">
+          <div>
+            <label>Appliance name</label>
+            <input id="inp-name" type="text" placeholder="e.g. Ceiling fan">
+          </div>
+          <div>
+            <label>Wattage (W)</label>
+            <input id="inp-watt" type="number" min="1" max="10000" placeholder="75">
+          </div>
+          <div>
+            <label>Hrs / day</label>
+            <input id="inp-hrs" type="number" min="0.5" max="24" step="0.5" placeholder="8">
+          </div>
+          <div>
+            <label>Qty</label>
+            <div class="qty-ctrl">
+              <button onclick="stepQty(-1)" aria-label="Decrease">&minus;</button>
+              <span id="qty-val">1</span>
+              <button onclick="stepQty(1)" aria-label="Increase">+</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:-4px;margin-bottom:1.5rem">
+          <button class="add-btn" onclick="addAppliance()"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add appliance</button>
+        </div>
+
+        <div class="section-label">Your appliance list</div>
+        <div class="appliance-list" id="appList">
+          <div class="empty-state" id="emptyState">
+            <i class="fa-solid fa-plug" style="font-size:28px;display:block;margin-bottom:8px" aria-hidden="true"></i>
+            Add appliances above or tap a preset to get started
+          </div>
+        </div>
+
+        <div class="results-panel" id="resultsPanel" style="display:none">
+          <div class="results-header">
+            <span>Total daily load</span>
+            <strong id="res-total-kwh">0 kWh/day</strong>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="m-label">Daily consumption</div>
+              <div class="m-val" id="res-kwh">0</div>
+              <div class="m-unit">kWh / day</div>
+            </div>
+            <div class="metric">
+              <div class="m-label">Peak demand</div>
+              <div class="m-val" id="res-peak">0</div>
+              <div class="m-unit">Watts</div>
+            </div>
+            <div class="metric">
+              <div class="m-label">Monthly est.</div>
+              <div class="m-val" id="res-monthly">Ksh 0</div>
+              <div class="m-unit">at KPLC rate</div>
+            </div>
+          </div>
+
+          <div style="padding:14px 16px 0;border-bottom:1px solid var(--border)">
+            <div class="section-label" style="margin-bottom:10px">Consumption breakdown</div>
+            <div id="barChart"></div>
+          </div>
+
+          <div class="rec-panel" id="recPanel"></div>
+        </div>
+
+      </div>
+
+      <!-- LEADS TAB -->
+      <div id="leadsTab" style="display:none">
+
+        <div class="calc-import-banner" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px">
+          <i class="fa-solid fa-calculator" style="font-size:24px;color:var(--green)" aria-hidden="true"></i>
+          <div id="calc-summary-msg" style="font-size:13px;color:var(--muted);line-height:1.5">
+            Fill in the calculator first to auto-populate your system recommendation — or simply describe your needs below.
+          </div>
+          <button class="load-import-btn" onclick="importFromCalc()" id="importBtn" style="flex-shrink:0">
+            <i class="fa-solid fa-download" style="font-size:15px" aria-hidden="true"></i> Import from calculator
+          </button>
+        </div>
+
+        <div class="success-box" id="successBox">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <p style="font-size:16px;font-weight:500;margin-bottom:4px">Quote request sent!</p>
+          <p>Our team will contact you within 2 hours. For instant help, WhatsApp us directly.</p>
+        </div>
+
+        <form id="leadsForm" class="form-section" onsubmit="submitLead(event)">
+
+          <div class="section-label">Your details</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full name <span class="req-star">*</span></label>
+              <input id="f-name" type="text" placeholder="Grace Wambui">
+              <span class="field-error" id="e-name">Please enter your name</span>
+            </div>
+            <div class="form-group">
+              <label>Phone number <span class="req-star">*</span></label>
+              <input id="f-phone" type="tel" placeholder="+254 7XX XXX XXX">
+              <span class="field-error" id="e-phone">Please enter a valid Kenyan number</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email address</label>
+              <input id="f-email" type="email" placeholder="grace@example.com">
+              <span class="form-hint">Optional — for receiving your detailed quote</span>
+            </div>
+            <div class="form-group">
+              <label>Location / County <span class="req-star">*</span></label>
+              <select id="f-location">
+                <option value="">Select your county...</option>
+                <option>Nairobi</option><option>Mombasa</option><option>Kisumu</option>
+                <option>Nakuru</option><option>Eldoret / Uasin Gishu</option><option>Thika / Kiambu</option>
+                <option>Machakos</option><option>Kajiado</option><option>Narok</option>
+                <option>Nyeri</option><option>Meru</option><option>Embu</option>
+                <option>Laikipia</option><option>Kitui</option><option>Other</option>
+              </select>
+              <span class="field-error" id="e-location">Please select your county</span>
+            </div>
+          </div>
+
+          <div class="section-label" style="margin-top:4px">Your energy situation</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Property type <span class="req-star">*</span></label>
+              <select id="f-proptype">
+                <option value="">Select...</option>
+                <option>Residential home</option><option>Apartment / flat</option>
+                <option>Commercial / office</option><option>School / institution</option>
+                <option>Farm / agricultural</option><option>Rental / block of flats</option>
+              </select>
+              <span class="field-error" id="e-proptype">Please select a property type</span>
+            </div>
+            <div class="form-group">
+              <label>Average monthly KPLC bill</label>
+              <select id="f-bill">
+                <option value="">Select range...</option>
+                <option>Under Ksh 2,000</option><option>Ksh 2,000 - 5,000</option>
+                <option>Ksh 5,000 - 10,000</option><option>Ksh 10,000 - 20,000</option>
+                <option>Ksh 20,000 - 50,000</option><option>Over Ksh 50,000</option>
+                <option>Not on grid (off-grid)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Primary goal</label>
+              <select id="f-goal">
+                <option value="">Select...</option>
+                <option>Backup power (stay on during blackouts)</option>
+                <option>Reduce KPLC bills</option>
+                <option>Go fully off-grid</option>
+                <option>Solar water heating</option>
+                <option>Agricultural / borehole pump</option>
+                <option>Business continuity</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Budget range</label>
+              <select id="f-budget">
+                <option value="">Select...</option>
+                <option>Under Ksh 100,000</option>
+                <option>Ksh 100,000 - 250,000</option>
+                <option>Ksh 250,000 - 500,000</option>
+                <option>Ksh 500,000 - 1,000,000</option>
+                <option>Over Ksh 1,000,000</option>
+                <option>Open to financing / lipa pole pole</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Recommended system (from calculator)</label>
+            <input id="f-system" type="text" placeholder="e.g. 5kW Hybrid System - run the calculator first">
+          </div>
+
+          <div class="form-group">
+            <label>Additional notes</label>
+            <textarea id="f-notes" placeholder="e.g. I have a borehole pump, 3-phase connection, generator backup, or specific questions..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>How did you hear about us?</label>
+            <select id="f-source">
+              <option value="">Select...</option>
+              <option>Google search</option><option>Referral from friend / family</option>
+              <option>Facebook / Instagram</option><option>WhatsApp</option>
+              <option>Existing customer</option><option>Other</option>
+            </select>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;padding-top:4px">
+            <button type="submit" class="submit-btn">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Submit quote request
+            </button>
+
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyu9c_rOPKtDHabAyrfLxwBGNDrdV61llRa-R_7hQl7LwRcxw1odKekjrXHMGn9jGgl0Q/exec';
+const WHATSAPP_NUMBER = '254727895108';
+
+const presets=[
+  {icon:'fa-regular fa-lightbulb',name:'LED bulb (10W)',w:10,h:8,qty:6},
+  {icon:'fa-regular fa-snowflake',name:'Fridge (150W)',w:150,h:24,qty:1},
+  {icon:'fa-solid fa-tv',name:'TV 32" (60W)',w:60,h:6,qty:1},
+  {icon:'fa-solid fa-wifi',name:'Wi-Fi router (10W)',w:10,h:24,qty:1},
+  {icon:'fa-solid fa-laptop',name:'Laptop (65W)',w:65,h:8,qty:1},
+  {icon:'fa-solid fa-mobile-screen',name:'Phone charger (20W)',w:20,h:4,qty:3},
+  {icon:'fa-solid fa-fan',name:'Ceiling fan (75W)',w:75,h:10,qty:2},
+  {icon:'fa-solid fa-kitchen-set',name:'Microwave (1200W)',w:1200,h:0.5,qty:1},
+  {icon:'fa-solid fa-shirt',name:'Washing machine (500W)',w:500,h:1,qty:1},
+  {icon:'fa-solid fa-plug',name:'Water pump (750W)',w:750,h:3,qty:1},
+  {icon:'fa-solid fa-video',name:'CCTV system (80W)',w:80,h:24,qty:1},
+  {icon:'fa-solid fa-temperature-half',name:'Shower pump (400W)',w:400,h:0.5,qty:1},
+  {icon:'fa-solid fa-print',name:'Printer (400W)',w:400,h:1,qty:1},
+  {icon:'fa-solid fa-wind',name:'Standing fan (50W)',w:50,h:8,qty:1},
+];
+
+let appliances=[];
+let qty=1;
+
+function stepQty(d){qty=Math.max(1,Math.min(20,qty+d));document.getElementById('qty-val').textContent=qty}
+
+const pg=document.getElementById('presetGrid');
+presets.forEach(p=>{
+  const b=document.createElement('button');
+  b.className='preset-btn';
+  b.innerHTML='<span class="preset-icon"><i class="'+p.icon+'"></i></span><span>'+p.name+'</span>';
+  b.onclick=()=>quickAdd(p);
+  pg.appendChild(b);
+});
+
+function quickAdd(p){
+  const exist=appliances.find(a=>a.name===p.name);
+  if(exist){exist.qty+=1;}else{appliances.push({...p,qty:p.qty||1});}
+  render();
+}
+
+function addAppliance(){
+  const name=document.getElementById('inp-name').value.trim();
+  const watt=parseFloat(document.getElementById('inp-watt').value);
+  const hrs=parseFloat(document.getElementById('inp-hrs').value);
+  if(!name||!watt||!hrs||watt<=0||hrs<=0||hrs>24){
+    document.getElementById('inp-name').style.borderColor='#E24B4A';
+    return;
+  }
+  document.getElementById('inp-name').style.borderColor='';
+  const icon=guessIcon(name);
+  const exist=appliances.find(a=>a.name.toLowerCase()===name.toLowerCase());
+  if(exist){exist.qty+=qty;}
+  else{appliances.push({icon,name,w:watt,h:hrs,qty});}
+  document.getElementById('inp-name').value='';
+  document.getElementById('inp-watt').value='';
+  document.getElementById('inp-hrs').value='';
+  qty=1;document.getElementById('qty-val').textContent='1';
+  render();
+}
+
+function guessIcon(n){
+  const nl=n.toLowerCase();
+  if(/light|bulb|lamp/.test(nl))return'fa-regular fa-lightbulb';
+  if(/fridge|freezer/.test(nl))return'fa-regular fa-snowflake';
+  if(/tv|television/.test(nl))return'fa-solid fa-tv';
+  if(/wifi|router|modem/.test(nl))return'fa-solid fa-wifi';
+  if(/laptop|computer|pc/.test(nl))return'fa-solid fa-laptop';
+  if(/phone|charger/.test(nl))return'fa-solid fa-mobile-screen';
+  if(/fan/.test(nl))return'fa-solid fa-fan';
+  if(/microwave|oven/.test(nl))return'fa-solid fa-kitchen-set';
+  if(/wash/.test(nl))return'fa-solid fa-shirt';
+  if(/pump|borehole/.test(nl))return'fa-solid fa-plug';
+  if(/cctv|camera/.test(nl))return'fa-solid fa-video';
+  return'fa-solid fa-bolt';
+}
+
+function render(){
+  const list=document.getElementById('appList');
+  const empty=document.getElementById('emptyState');
+  const panel=document.getElementById('resultsPanel');
+  if(appliances.length===0){
+    list.innerHTML='';list.appendChild(empty);panel.style.display='none';return;
+  }
+  panel.style.display='block';
+  let html='';
+  appliances.forEach((a,i)=>{
+    const kwh=+(a.w*a.h*a.qty/1000).toFixed(2);
+    html+='<div class="app-item">'+
+      '<span class="app-icon"><i class="'+a.icon+'"></i></span>'+
+      '<span class="app-name">'+a.name+'</span>'+
+      '<span class="app-meta">'+a.w+'W x '+a.h+'h x '+a.qty+'</span>'+
+      '<span class="app-kwh">'+kwh+' kWh</span>'+
+      '<div class="qty-ctrl">'+
+        '<button onclick="changeQty('+i+',-1)" aria-label="Less">&minus;</button>'+
+        '<span>'+a.qty+'</span>'+
+        '<button onclick="changeQty('+i+',1)" aria-label="More">+</button>'+
+      '</div>'+
+      '<button class="del-btn" onclick="removeAppliance('+i+')" aria-label="Remove"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>'+
+    '</div>';
+  });
+  list.innerHTML=html;
+  updateResults();
+}
+
+function changeQty(i,d){
+  appliances[i].qty=Math.max(1,appliances[i].qty+d);
+  render();
+}
+function removeAppliance(i){appliances.splice(i,1);render();}
+
+function updateResults(){
+  const totalKwh=appliances.reduce((s,a)=>s+a.w*a.h*a.qty/1000,0);
+  const peakW=appliances.reduce((s,a)=>s+a.w*a.qty,0);
+  const monthlyKsh=Math.round(totalKwh*30*25);
+  document.getElementById('res-total-kwh').textContent=totalKwh.toFixed(1)+' kWh/day';
+  document.getElementById('res-kwh').textContent=totalKwh.toFixed(1);
+  document.getElementById('res-peak').textContent=peakW.toLocaleString();
+  document.getElementById('res-monthly').textContent='Ksh '+monthlyKsh.toLocaleString();
+  renderBars(totalKwh);
+  renderRecommendation(totalKwh,peakW);
+}
+
+function renderBars(total){
+  const sorted=[...appliances].sort((a,b)=>(b.w*b.h*b.qty)-(a.w*a.h*a.qty)).slice(0,6);
+  let html='';
+  sorted.forEach(a=>{
+    const kwh=+(a.w*a.h*a.qty/1000).toFixed(2);
+    const pct=total>0?Math.round(kwh/total*100):0;
+    html+='<div class="bar-row">'+
+      '<span class="bar-label"><i class="'+a.icon+'" style="font-size:12px"></i> '+(a.name.length>14?a.name.slice(0,13)+'...':a.name)+'</span>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div>'+
+      '<span class="bar-kwh">'+kwh+' kWh</span>'+
+    '</div>';
+  });
+  document.getElementById('barChart').innerHTML=html;
+}
+
+function renderRecommendation(kwh,peakW){
+  const sun=5.5,eff=0.75,autonomy=1.5;
+  const panelKw=+(kwh/(sun*eff)).toFixed(1);
+  const battKwh=+(kwh*autonomy).toFixed(1);
+  const invKva=Math.ceil(peakW*1.3/1000);
+
+  let tier,name,desc,panels,inv,batt,price,wa;
+  if(kwh<=3){
+    tier='Basic Backup';name='1.5-2kW Basic Backup System';
+    desc='Covers lights, fans, TV, Wi-Fi and phone charging. Ideal for 1-2 bedroom homes.';
+    panels=Math.max(2,Math.ceil(panelKw/0.55));inv='1.5-2kVA Hybrid';batt='1-2kWh Gel';price='Ksh 85,000 - 150,000';wa='1.5kW Basic Backup';
+  }else if(kwh<=8){
+    tier='Family Comfort';name='3-5kW Hybrid System';
+    desc='Handles fridge, microwave, washing machine and standard household loads.';
+    panels=Math.max(4,Math.ceil(panelKw/0.55));inv='3-5kVA Hybrid';batt='3-5kWh LiFePO4';price='Ksh 220,000 - 420,000';wa='3-5kW Family Comfort';
+  }else if(kwh<=20){
+    tier='Off-Grid Ready';name='8-10kW Hybrid System';
+    desc='Full household independence with significant commercial load support.';
+    panels=Math.max(10,Math.ceil(panelKw/0.55));inv='8-10kVA Hybrid';batt='10-15kWh LiFePO4';price='Ksh 600,000 - 900,000';wa='8-10kW Off-Grid';
+  }else{
+    tier='Commercial';name='15-50kW+ Commercial Array';
+    desc='Enterprise-grade system for high-consumption homes, businesses, schools or clinics.';
+    panels=Math.max(20,Math.ceil(panelKw/0.55));inv='15-50kVA 3-Phase';batt='20kWh+ LiFePO4 Bank';price='Ksh 1,000,000+';wa='Large Commercial system';
+  }
+
+  const waMsg=encodeURIComponent('Hi, I used the SunPro load calculator. My daily load is '+kwh.toFixed(1)+' kWh (peak '+peakW+'W). Recommended: '+wa+'. Please send me a detailed quote!');
+
+  document.getElementById('recPanel').innerHTML=''+
+    '<div class="rec-badge"><i class="fa-solid fa-sun" style="font-size:14px" aria-hidden="true"></i> '+tier+'</div>'+
+    '<div class="sys-title">'+name+'</div>'+
+    '<p class="sys-desc">'+desc+'</p>'+
+    '<div class="spec-grid">'+
+      '<div class="spec-item"><div class="s-label">Solar panels</div><div class="s-val">'+panels+'x 550W Mono</div></div>'+
+      '<div class="spec-item"><div class="s-label">Inverter</div><div class="s-val">'+inv+'</div></div>'+
+      '<div class="spec-item"><div class="s-label">Battery storage</div><div class="s-val">'+batt+'</div></div>'+
+      '<div class="spec-item"><div class="s-label">Est. daily yield</div><div class="s-val">'+(panels*0.55*sun*eff).toFixed(1)+' kWh</div></div>'+
+    '</div>'+
+    '<div class="price-row">'+
+      '<span class="price-from">Estimated installed cost</span>'+
+      '<span class="price-val">'+price+'</span>'+
+    '</div>'+
+    '<button class="wa-rec-btn" onclick="openWa(\''+waMsg+'\')">'+
+      '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Get exact quote via WhatsApp'+
+    '</button>'+
+    '<button style="width:100%;margin-top:8px;background:none;border:1px solid var(--border);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px" onclick="switchTab(\'leads\');importFromCalc()">'+
+      '<i class="fa-solid fa-clipboard" style="font-size:16px" aria-hidden="true"></i> Fill the quote form instead'+
+    '</button>';
+
+  window._calcResult={kwh,peakW,name,price};
+}
+
+function openWa(msg){
+  window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+msg,'_blank');
+}
+
+function switchTab(t){
+  document.getElementById('calcTab').style.display=t==='calc'?'block':'none';
+  document.getElementById('leadsTab').style.display=t==='leads'?'block':'none';
+  document.querySelectorAll('.tab').forEach((el,i)=>{
+    el.classList.toggle('active',(i===0&&t==='calc')||(i===1&&t==='leads'));
+  });
+}
+
+function importFromCalc(){
+  if(!window._calcResult){return;}
+  const r=window._calcResult;
+  document.getElementById('f-system').value=r.name+' - '+r.kwh.toFixed(1)+' kWh/day, peak '+r.peakW+'W';
+  document.getElementById('calc-summary-msg').innerHTML='<strong style="color:var(--green)">Calculator result imported:</strong> '+r.name+' ('+r.kwh.toFixed(1)+' kWh/day). Your form has been pre-filled.';
+  document.getElementById('importBtn').innerHTML='<i class="fa-solid fa-check" style="font-size:15px" aria-hidden="true"></i> Imported';
+  document.getElementById('importBtn').style.background='var(--green-light)';
+  document.getElementById('importBtn').style.color='var(--green)';
+  document.getElementById('importBtn').style.borderColor='#97C459';
+}
+
+function validate(){
+  let ok=true;
+  const checks=[
+    ['f-name','e-name',v=>v.trim().length>1],
+    ['f-phone','e-phone',v=>/^[+]?[0-9\s\-]{9,15}$/.test(v.trim())],
+    ['f-location','e-location',v=>v!==''],
+    ['f-proptype','e-proptype',v=>v!==''],
+  ];
+  checks.forEach(([fid,eid,fn])=>{
+    const el=document.getElementById(fid);
+    const err=document.getElementById(eid);
+    if(!fn(el.value)){el.classList.add('err');err.style.display='block';ok=false;}
+    else{el.classList.remove('err');err.style.display='none';}
+  });
+  return ok;
+}
+
+function getFormData(){
+  return{
+    name: document.getElementById('f-name').value,
+    phone: document.getElementById('f-phone').value,
+    email: document.getElementById('f-email').value||'—',
+    location: document.getElementById('f-location').value,
+    property: document.getElementById('f-proptype').value||'—',
+    bill: document.getElementById('f-bill').value||'—',
+    goal: document.getElementById('f-goal').value||'—',
+    budget: document.getElementById('f-budget').value||'—',
+    system: document.getElementById('f-system').value||'Not specified',
+    notes: document.getElementById('f-notes').value||'—',
+    source: document.getElementById('f-source').value||'—'
+  };
+}
+
+async function submitLead(e){
+  e.preventDefault();
+  if(!validate())return;
+  const data=getFormData();
+
+  try{
+    fetch(GOOGLE_SHEETS_URL,{
+      method:'POST',
+      mode:'no-cors',
+      body:JSON.stringify(data)
+    });
+  }catch(err){
+    console.error('Sheet submit error:',err);
+  }
+
+  const msg='New lead from SunPro website!\n\n'+
+    'Name: '+data.name+'\n'+
+    'Phone: '+data.phone+'\n'+
+    'Email: '+data.email+'\n'+
+    'Location: '+data.location+'\n'+
+    'Property: '+data.property+'\n'+
+    'KPLC Bill: '+data.bill+'\n'+
+    'Goal: '+data.goal+'\n'+
+    'Budget: '+data.budget+'\n'+
+    'System: '+data.system+'\n'+
+    'Notes: '+data.notes+'\n'+
+    'Source: '+data.source;
+
+  document.getElementById('leadsForm').style.display='none';
+  document.getElementById('successBox').style.display='block';
+
+  setTimeout(()=>{
+    window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  },800);
+}
+
+function openCalculatorPopup(){
+  document.getElementById('calculatorPopup').style.display='flex';
+  document.body.classList.add('popup-open');
+}
+
+function closeCalculatorPopup(){
+  document.getElementById('calculatorPopup').style.display='none';
+  document.body.classList.remove('popup-open');
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeCalculatorPopup();
+});
+
+document.querySelectorAll('#leadsForm input, #leadsForm select').forEach(el=>{
+  el.addEventListener('input',()=>{el.classList.remove('err');const e=document.getElementById('e-'+el.id.replace('f-',''));if(e)e.style.display='none';});
+});
+
+document.getElementById('calculatorPopup').addEventListener('click',function(e){
+  if(e.target===this)closeCalculatorPopup();
+});
+</script>

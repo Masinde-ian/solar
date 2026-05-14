@@ -34,8 +34,10 @@ if(slider){
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  const h=a.getAttribute('href');
+  if(h==='#')return;
   a.addEventListener('click',e=>{
-    const target=document.querySelector(a.getAttribute('href'));
+    const target=document.querySelector(h);
     if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
   });
 });

@@ -36,7 +36,7 @@
     "https://www.facebook.com/share/17wQtb13HR/"
   ]
 }
-</script>
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Ubuntu:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -202,7 +202,7 @@
         </div>
       </div>
       <div class="prod-card">
-        <div class="prod-img"><img src="images/powerhub pro5kW.jpg" alt="PowerHub 5kW"></div>
+        <div class="prod-img"><img src="images/powerhub%20pro5kW.jpg" alt="PowerHub 5kW"></div>
         <div class="prod-body">
           <div class="prod-tag">Home Power Hub</div>
           <h3>PowerHub 10kW<br><small>10kW Inverter + 10kWh Battery</small></h3>
@@ -793,6 +793,14 @@
               <button onclick="stepQty(1)" aria-label="Increase">+</button>
             </div>
           </div>
+          <div style="grid-column:1/-1">
+            <label>Usage Time</label>
+            <select id="inp-time" style="width:100%;font-size:14px;padding:6px 10px;border-radius:10px;border:1px solid var(--border);background:var(--white);color:var(--text);">
+              <option value="both">Day (8 AM - 6 PM) & Night (6 PM - 7 AM)</option>
+              <option value="day">Day (8 AM - 6 PM) Only</option>
+              <option value="night">Night (6 PM - 7 AM) Only</option>
+            </select>
+          </div>
         </div>
         <div style="display:flex;justify-content:flex-end;margin-top:-4px;margin-bottom:1.5rem">
           <button class="add-btn" onclick="addAppliance()"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add appliance</button>
@@ -982,22 +990,22 @@ const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyu9c_rOPKtDH
 const WHATSAPP_NUMBER = '254727895108';
 
 const presets=[
-  {icon:'fa-regular fa-lightbulb',name:'LED bulb (10W)',w:10,h:8,qty:6},
-  {icon:'fa-regular fa-snowflake',name:'Fridge (150W)',w:150,h:24,qty:1},
-  {icon:'fa-solid fa-tv',name:'TV 32" (60W)',w:60,h:6,qty:1},
-  {icon:'fa-solid fa-tv',name:'TV 50" (100W)',w:100,h:6,qty:1},
-  {icon:'fa-solid fa-wifi',name:'Wi-Fi router (10W)',w:10,h:24,qty:1},
-  {icon:'fa-solid fa-laptop',name:'Laptop (65W)',w:65,h:8,qty:1},
-  {icon:'fa-solid fa-mobile-screen',name:'Phone charger (20W)',w:20,h:4,qty:3},
-  {icon:'fa-solid fa-fan',name:'Ceiling fan (75W)',w:75,h:10,qty:2},
-  {icon:'fa-solid fa-kitchen-set',name:'Microwave (1200W)',w:1200,h:0.5,qty:1},
-  {icon:'fa-solid fa-shirt',name:'Washing machine (500W)',w:500,h:1,qty:1},
-  {icon:'fa-solid fa-shirt',name:'Washing machine (2500W)',w:2500,h:1,qty:1},
-  {icon:'fa-solid fa-plug',name:'Water pump (750W)',w:750,h:3,qty:1},
-  {icon:'fa-solid fa-video',name:'CCTV system (80W)',w:80,h:24,qty:1},
-  {icon:'fa-solid fa-temperature-half',name:'Shower pump (400W)',w:400,h:0.5,qty:1},
-  {icon:'fa-solid fa-print',name:'Printer (400W)',w:400,h:1,qty:1},
-  {icon:'fa-solid fa-wind',name:'Standing fan (50W)',w:50,h:8,qty:1},
+  {icon:'fa-regular fa-lightbulb',name:'LED bulb (10W)',w:10,h:8,qty:6,timeOfDay:'both'},
+  {icon:'fa-regular fa-snowflake',name:'Fridge (150W)',w:150,h:24,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-tv',name:'TV 32" (60W)',w:60,h:6,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-tv',name:'TV 50" (100W)',w:100,h:6,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-wifi',name:'Wi-Fi router (10W)',w:10,h:24,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-laptop',name:'Laptop (65W)',w:65,h:8,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-mobile-screen',name:'Phone charger (20W)',w:20,h:4,qty:3,timeOfDay:'night'},
+  {icon:'fa-solid fa-fan',name:'Ceiling fan (75W)',w:75,h:10,qty:2,timeOfDay:'both'},
+  {icon:'fa-solid fa-kitchen-set',name:'Microwave (1200W)',w:1200,h:0.5,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-shirt',name:'Washing machine (500W)',w:500,h:1,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-shirt',name:'Washing machine (2500W)',w:2500,h:1,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-plug',name:'Water pump (750W)',w:750,h:3,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-video',name:'CCTV system (80W)',w:80,h:24,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-temperature-half',name:'Shower pump (400W)',w:400,h:0.5,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-print',name:'Printer (400W)',w:400,h:1,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-wind',name:'Standing fan (50W)',w:50,h:8,qty:1,timeOfDay:'both'},
 ];
 
 let appliances=[];
@@ -1015,7 +1023,7 @@ presets.forEach(p=>{
 });
 
 function quickAdd(p){
-  const exist=appliances.find(a=>a.name===p.name);
+  const exist=appliances.find(a=>a.name===p.name && a.timeOfDay === p.timeOfDay);
   if(exist){exist.qty+=1;}else{appliances.push({...p,qty:p.qty||1});}
   render();
 }
@@ -1024,18 +1032,24 @@ function addAppliance(){
   const name=document.getElementById('inp-name').value.trim();
   const watt=parseFloat(document.getElementById('inp-watt').value);
   const hrs=parseFloat(document.getElementById('inp-hrs').value);
+  const timeOfDay=document.getElementById('inp-time').value;
   if(!name||!watt||!hrs||watt<=0||hrs<=0||hrs>24){
     document.getElementById('inp-name').style.borderColor='#E24B4A';
+    document.getElementById('inp-watt').style.borderColor='#E24B4A';
+    document.getElementById('inp-hrs').style.borderColor='#E24B4A';
     return;
   }
   document.getElementById('inp-name').style.borderColor='';
+  document.getElementById('inp-watt').style.borderColor='';
+  document.getElementById('inp-hrs').style.borderColor='';
   const icon=guessIcon(name);
-  const exist=appliances.find(a=>a.name.toLowerCase()===name.toLowerCase());
+  const exist=appliances.find(a=>a.name.toLowerCase()===name.toLowerCase() && a.timeOfDay === timeOfDay);
   if(exist){exist.qty+=qty;}
-  else{appliances.push({icon,name,w:watt,h:hrs,qty});}
+  else{appliances.push({icon,name,w:watt,h:hrs,qty,timeOfDay});}
   document.getElementById('inp-name').value='';
   document.getElementById('inp-watt').value='';
   document.getElementById('inp-hrs').value='';
+  document.getElementById('inp-time').value='both';
   qty=1;document.getElementById('qty-val').textContent='1';
   render();
 }
@@ -1069,7 +1083,8 @@ function render(){
     const kwh=+(a.w*a.h*a.qty/1000).toFixed(2);
     html+='<div class="app-item">'+
       '<span class="app-icon"><i class="'+a.icon+'"></i></span>'+
-      '<span class="app-name">'+a.name+'</span>'+
+      '<span class="app-name">'+a.name+'<div style="font-size:10px;color:var(--muted);margin-top:2px">'+
+      (a.timeOfDay==='day'?'Day usage':a.timeOfDay==='night'?'Night usage':'Day & Night')+'</div></span>'+
       '<span class="app-meta">'+a.w+'W x '+a.h+'h x '+a.qty+'</span>'+
       '<span class="app-kwh">'+kwh+' kWh</span>'+
       '<div class="qty-ctrl">'+
@@ -1091,15 +1106,33 @@ function changeQty(i,d){
 function removeAppliance(i){appliances.splice(i,1);render();}
 
 function updateResults(){
-  const totalKwh=appliances.reduce((s,a)=>s+a.w*a.h*a.qty/1000,0);
-  const peakW=appliances.reduce((s,a)=>s+a.w*a.qty,0);
+  let dayKwh=0,nightKwh=0,dayPeakW=0,nightPeakW=0;
+  appliances.forEach(a=>{
+    const dailyKwh=a.w*a.h*a.qty/1000;
+    const peakWatts=a.w*a.qty;
+
+    if(a.timeOfDay==='day' || a.timeOfDay==='both'){
+      dayKwh+=dailyKwh;
+      dayPeakW+=peakWatts;
+    }
+    if(a.timeOfDay==='night' || a.timeOfDay==='both'){
+      // For night usage, assume consumption over 13 hours (6 PM to 7 AM)
+      // If an appliance runs for more than 13 hours, cap its contribution to nightKwh at 13 hours
+      nightKwh+=a.w * Math.min(a.h, 13) * a.qty / 1000; // Cap hours for night calculation
+      nightPeakW+=peakWatts;
+    }
+  });
+
+  const totalKwh=dayKwh+nightKwh;
+  const peakW=Math.max(dayPeakW,nightPeakW);
   const monthlyKsh=Math.round(totalKwh*30*25);
+
   document.getElementById('res-total-kwh').textContent=totalKwh.toFixed(1)+' kWh/day';
   document.getElementById('res-kwh').textContent=totalKwh.toFixed(1);
   document.getElementById('res-peak').textContent=peakW.toLocaleString();
   document.getElementById('res-monthly').textContent='Ksh '+monthlyKsh.toLocaleString();
   renderBars(totalKwh);
-  renderRecommendation(totalKwh,peakW);
+  renderRecommendation(totalKwh,dayKwh,nightKwh,peakW,dayPeakW,nightPeakW);
 }
 
 function renderBars(total){
@@ -1117,46 +1150,90 @@ function renderBars(total){
   document.getElementById('barChart').innerHTML=html;
 }
 
-function renderRecommendation(kwh,peakW){
-  const sun=5.5,eff=0.75,autonomy=1.5;
-  const panelKw=+(kwh/(sun*eff)).toFixed(1);
-  const battKwh=+(kwh*autonomy).toFixed(1);
-  const invKva=Math.ceil(peakW*1.3/1000);
+function renderRecommendation(totalKwh,dayKwh,nightKwh,peakW,dayPeakW,nightPeakW){
+  const sunHours=5.5; // Average daily peak sun hours
+  const systemEff=0.75; // System efficiency
+  const autonomyDays=2; // Battery autonomy for 2 days
+
+  // Calculate panel size based on total daily consumption (ideally day load, but total for simpler calculation here)
+  const panelKw = +(totalKwh / (sunHours * systemEff)).toFixed(1);
+
+  // Inverter size: 1.5 times the higher of day or night peak demand
+  const invKva = Math.ceil(Math.max(dayPeakW, nightPeakW) * 1.5 / 1000);
+  
+  // Battery size: 2 times the total energy usage at night
+  const battKwh = +(nightKwh * autonomyDays).toFixed(1);
 
   let tier,name,desc,panels,inv,batt,price,wa;
-  if(kwh<=3){
-    tier='Basic Backup';name='1.5-2kW Basic Backup System';
-    desc='Covers lights, fans, TV, Wi-Fi and phone charging. Ideal for 1-2 bedroom homes.';
-    panels=Math.max(2,Math.ceil(panelKw/0.55));inv='1.5-2kVA Hybrid';batt='1-2kWh Gel';price='Ksh 85,000 - 150,000';wa='1.5kW Basic Backup';
-  }else if(kwh<=8){
-    tier='Family Comfort';name='3-5kW Hybrid System';
-    desc='Handles fridge, microwave, washing machine and standard household loads.';
-    panels=Math.max(4,Math.ceil(panelKw/0.55));inv='3-5kVA Hybrid';batt='3-5kWh LiFePO4';price='Ksh 220,000 - 420,000';wa='3-5kW Family Comfort';
-  }else if(kwh<=20){
-    tier='Off-Grid Ready';name='8-10kW Hybrid System';
-    desc='Full household independence with significant commercial load support.';
-    panels=Math.max(10,Math.ceil(panelKw/0.55));inv='8-10kVA Hybrid';batt='10-15kWh LiFePO4';price='Ksh 600,000 - 900,000';wa='8-10kW Off-Grid';
-  }else{
-    tier='Commercial';name='15-50kW+ Commercial Array';
-    desc='Enterprise-grade system for high-consumption homes, businesses, schools or clinics.';
-    panels=Math.max(20,Math.ceil(panelKw/0.55));inv='15-50kVA 3-Phase';batt='20kWh+ LiFePO4 Bank';price='Ksh 1,000,000+';wa='Large Commercial system';
+
+  if (totalKwh <= 3) {
+    tier = 'Basic Backup';
+    name = '1.5-2kW Basic Backup System';
+    desc = 'Covers lights, fans, TV, Wi-Fi and phone charging. Ideal for 1-2 bedroom homes.';
+    panels = Math.max(2, Math.ceil(panelKw / 0.55)); // assuming 550W panels
+    inv = '1.5-2kVA Hybrid';
+    batt = '1-2kWh Gel';
+    price = 'Ksh 85,000 - 150,000';
+    wa = '1.5kW Basic Backup';
+  } else if (totalKwh <= 8) {
+    tier = 'Family Comfort';
+    name = '3-5kW Hybrid System';
+    desc = 'Handles fridge, microwave, washing machine and standard household loads.';
+    panels = Math.max(4, Math.ceil(panelKw / 0.55));
+    inv = '3-5kVA Hybrid';
+    batt = '3-5kWh LiFePO4';
+    price = 'Ksh 220,000 - 420,000';
+    wa = '3-5kW Family Comfort';
+  } else if (totalKwh <= 20) {
+    tier = 'Off-Grid Ready';
+    name = '8-10kW Hybrid System';
+    desc = 'Full household independence with significant commercial load support.';
+    panels = Math.max(10, Math.ceil(panelKw / 0.55));
+    inv = '8-10kVA Hybrid';
+    batt = '10-15kWh LiFePO4';
+    price = 'Ksh 600,000 - 900,000';
+    wa = '8-10kW Off-Grid';
+  } else {
+    tier = 'Commercial';
+    name = '15-50kW+ Commercial Array';
+    desc = 'Enterprise-grade system for high-consumption homes, businesses, schools or clinics.';
+    panels = Math.max(20, Math.ceil(panelKw / 0.55));
+    inv = '15-50kVA 3-Phase';
+    batt = '20kWh+ LiFePO4 Bank';
+    price = 'Ksh 1,000,000+';
+    wa = 'Large Commercial system';
   }
 
-  const waMsg=encodeURIComponent('Hi, I used the SunPro load calculator. My daily load is '+kwh.toFixed(1)+' kWh (peak '+peakW+'W). Recommended: '+wa+'. Please send me a detailed quote!');
+  // Adjust recommended inverter and battery based on calculated values if they are higher than the tier defaults
+  const finalInv = Math.max(invKva, parseFloat(inv)) + 'kVA Hybrid';
+  const finalBatt = Math.max(battKwh, parseFloat(batt)) + 'kWh LiFePO4';
+  const finalPanels = Math.max(panels, Math.ceil(panelKw / 0.55)); // Ensure panels are not less than calculated
+
+
+  const waMsg=encodeURIComponent(
+    'Hi, I used the SunPro load calculator.\n\n' +
+    'My total daily load is ' + totalKwh.toFixed(1) + ' kWh (Day: ' + dayKwh.toFixed(1) + ' kWh, Night: ' + nightKwh.toFixed(1) + ' kWh).\n' +
+    'Peak demand is ' + peakW + 'W (Day: ' + dayPeakW + 'W, Night: ' + nightPeakW + 'W).\n\n' +
+    'Recommended System: ' + name + '.\n' +
+    'Please send me a detailed quote!'
+  );
 
   document.getElementById('recPanel').innerHTML=''+
     '<div class="rec-badge"><i class="fa-solid fa-sun" style="font-size:14px" aria-hidden="true"></i> '+tier+'</div>'+
     '<div class="sys-title">'+name+'</div>'+
     '<p class="sys-desc">'+desc+'</p>'+
     '<div class="spec-grid">'+
-      '<div class="spec-item"><div class="s-label">Solar panels</div><div class="s-val">'+panels+'x 550W Mono</div></div>'+
-      '<div class="spec-item"><div class="s-label">Inverter</div><div class="s-val">'+inv+'</div></div>'+
-      '<div class="spec-item"><div class="s-label">Battery storage</div><div class="s-val">'+batt+'</div></div>'+
-      '<div class="spec-item"><div class="s-label">Est. daily yield</div><div class="s-val">'+(panels*0.55*sun*eff).toFixed(1)+' kWh</div></div>'+
+      '<div class="spec-item"><div class="s-label">Solar panels</div><div class="s-val">' + finalPanels + 'x 550W Mono</div></div>'+
+      '<div class="spec-item"><div class="s-label">Inverter</div><div class="s-val">' + finalInv + '</div></div>'+
+      '<div class="spec-item"><div class="s-label">Battery storage</div><div class="s-val">' + finalBatt + '</div></div>'+
+      '<div class="spec-item"><div class="s-label">Est. daily yield</div><div class="s-val">' + (finalPanels * 0.55 * sunHours * systemEff).toFixed(1) + ' kWh</div></div>'+
     '</div>'+
     '<div class="price-row">'+
       '<span class="price-from">Estimated installed cost</span>'+
       '<span class="price-val">'+price+'</span>'+
+    '</div>'+
+    '<div style="font-size:12px;color:var(--muted);margin-top:10px;padding:8px;background:var(--surface);border-radius:10px;">'+
+      'Disclaimer: This is an estimate. Actual system size and cost may vary by up to 50% after a professional site assessment.'+
     '</div>'+
     '<button class="wa-rec-btn" onclick="openWa(\''+waMsg+'\')">'+
       '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Get exact quote via WhatsApp'+
@@ -1165,7 +1242,7 @@ function renderRecommendation(kwh,peakW){
       '<i class="fa-solid fa-clipboard" style="font-size:16px" aria-hidden="true"></i> Fill the quote form instead'+
     '</button>';
 
-  window._calcResult={kwh,peakW,name,price};
+  window._calcResult={kwh:totalKwh,peakW,name,price};
 }
 
 function openWa(msg){

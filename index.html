@@ -3,39 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.svg">
   <meta name="google-site-verification" content="VGz7PhUjjHxMGZkpt8zcL25VpJ7eWTng-GkbzrlhSys" />
   <title>SunPro – Reliable Solar Solutions</title>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
-  "name": "SunPro",
-  "image": "images/logo/logo-removebg-preview.png",
-  "telePhone": "+254715476526",
-  "url": "https://sunpro.co.ke",
-  "description": "Kenya's most trusted solar energy provider. EPRA licensed. Serving Nairobi, Mombasa, Kisumu and all counties since 2016.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Lavington",
-    "addressLocality": "Nairobi",
-    "addressRegion": "Nairobi",
-    "postalCode": "00100",
-    "addressCountry": "KE"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -1.2936,
-    "longitude": 36.7844
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Nairobi" },
-    { "@type": "Country", "name": "Kenya" }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/share/17wQtb13HR/"
-  ]
-}
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeAndConstructionBusiness",
+      "name": "SunPro",
+      "image": "images/logo/logo-removebg-preview.png",
+      "telePhone": "+254715476526",
+      "url": "https://sunpro.co.ke",
+      "description": "Kenya's most trusted solar energy provider. EPRA licensed. Serving Nairobi, Mombasa, Kisumu and all counties since 2016.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Lavington",
+        "addressLocality": "Nairobi",
+        "addressRegion": "Nairobi",
+        "postalCode": "00100",
+        "addressCountry": "KE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -1.2936,
+        "longitude": 36.7844
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Nairobi" },
+        { "@type": "Country", "name": "Kenya" }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/share/17wQtb13HR/"
+      ]
+    }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Ubuntu:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -664,6 +664,7 @@
     </div>
     <div class="partners-marquee">
       <div class="partners-track">
+        <span class="partner-item"><img src="images/patners/IMG-20260517-WA0005.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0006.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0007.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0008.jpg" alt="Partner"></span>
@@ -674,6 +675,7 @@
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0029.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0030.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0031.jpg" alt="Partner"></span>
+        <span class="partner-item"><img src="images/patners/IMG-20260517-WA0005.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0006.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0007.jpg" alt="Partner"></span>
         <span class="partner-item"><img src="images/patners/IMG-20260511-WA0008.jpg" alt="Partner"></span>
@@ -754,7 +756,6 @@
     <button class="popup-close" onclick="closeCalculatorPopup()" aria-label="Close">&times;</button>
 
     <div class="calc-leads">
-
       <h2 class="sr-only">Solar load calculator and lead capture form for SunPro</h2>
 
       <div class="tab-bar" id="tabBar">
@@ -768,7 +769,6 @@
 
       <!-- CALCULATOR TAB -->
       <div id="calcTab">
-
         <div class="section-label">Quick-add common appliances</div>
         <div class="preset-grid" id="presetGrid"></div>
 
@@ -793,16 +793,8 @@
               <button onclick="stepQty(1)" aria-label="Increase">+</button>
             </div>
           </div>
-          <div style="grid-column:1/-1">
-            <label>Usage Time</label>
-            <select id="inp-time" style="width:100%;font-size:14px;padding:6px 10px;border-radius:10px;border:1px solid var(--border);background:var(--white);color:var(--text);">
-              <option value="both">Day (8 AM - 6 PM) & Night (6 PM - 7 AM)</option>
-              <option value="day">Day (8 AM - 6 PM) Only</option>
-              <option value="night">Night (6 PM - 7 AM) Only</option>
-            </select>
-          </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:-4px;margin-bottom:1.5rem">
+        <div style="display:flex;justify-content:flex-end;margin-top:1rem;margin-bottom:1.5rem">
           <button class="add-btn" onclick="addAppliance()"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add appliance</button>
         </div>
 
@@ -844,12 +836,10 @@
 
           <div class="rec-panel" id="recPanel"></div>
         </div>
-
       </div>
 
       <!-- LEADS TAB -->
       <div id="leadsTab" style="display:none">
-
         <div class="calc-import-banner" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px">
           <i class="fa-solid fa-calculator" style="font-size:24px;color:var(--green)" aria-hidden="true"></i>
           <div id="calc-summary-msg" style="font-size:13px;color:var(--muted);line-height:1.5">
@@ -860,25 +850,24 @@
           </button>
         </div>
 
-        <div class="success-box" id="successBox">
+        <div class="success-box" id="successBox" style="display:none">
           <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
           <p style="font-size:16px;font-weight:500;margin-bottom:4px">Quote request sent!</p>
           <p>Our team will contact you within 2 hours. For instant help, WhatsApp us directly.</p>
         </div>
 
         <form id="leadsForm" class="form-section" onsubmit="submitLead(event)">
-
           <div class="section-label">Your details</div>
           <div class="form-row">
             <div class="form-group">
               <label>Full name <span class="req-star">*</span></label>
               <input id="f-name" type="text" placeholder="Grace Wambui">
-              <span class="field-error" id="e-name">Please enter your name</span>
+              <span class="field-error" id="e-name" style="display:none">Please enter your name</span>
             </div>
             <div class="form-group">
               <label>Phone number <span class="req-star">*</span></label>
               <input id="f-phone" type="tel" placeholder="+254 7XX XXX XXX">
-              <span class="field-error" id="e-phone">Please enter a valid Kenyan number</span>
+              <span class="field-error" id="e-phone" style="display:none">Please enter a valid Kenyan number</span>
             </div>
           </div>
           <div class="form-row">
@@ -897,7 +886,7 @@
                 <option>Nyeri</option><option>Meru</option><option>Embu</option>
                 <option>Laikipia</option><option>Kitui</option><option>Other</option>
               </select>
-              <span class="field-error" id="e-location">Please select your county</span>
+              <span class="field-error" id="e-location" style="display:none">Please select your county</span>
             </div>
           </div>
 
@@ -911,7 +900,7 @@
                 <option>Commercial / office</option><option>School / institution</option>
                 <option>Farm / agricultural</option><option>Rental / block of flats</option>
               </select>
-              <span class="field-error" id="e-proptype">Please select a property type</span>
+              <span class="field-error" id="e-proptype" style="display:none">Please select a property type</span>
             </div>
             <div class="form-group">
               <label>Average monthly KPLC bill</label>
@@ -975,12 +964,9 @@
             <button type="submit" class="submit-btn">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Submit quote request
             </button>
-
           </div>
-
         </form>
       </div>
-
     </div>
   </div>
 </div>
@@ -995,23 +981,26 @@ const presets=[
   {icon:'fa-solid fa-tv',name:'TV 32" (60W)',w:60,h:6,qty:1,timeOfDay:'both'},
   {icon:'fa-solid fa-tv',name:'TV 50" (100W)',w:100,h:6,qty:1,timeOfDay:'both'},
   {icon:'fa-solid fa-wifi',name:'Wi-Fi router (10W)',w:10,h:24,qty:1,timeOfDay:'both'},
-  {icon:'fa-solid fa-laptop',name:'Laptop (65W)',w:65,h:8,qty:1,timeOfDay:'day'},
-  {icon:'fa-solid fa-mobile-screen',name:'Phone charger (20W)',w:20,h:4,qty:3,timeOfDay:'night'},
+  {icon:'fa-solid fa-laptop',name:'Laptop (65W)',w:65,h:8,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-mobile-screen',name:'Phone charger (20W)',w:20,h:4,qty:3,timeOfDay:'both'},
   {icon:'fa-solid fa-fan',name:'Ceiling fan (75W)',w:75,h:10,qty:2,timeOfDay:'both'},
-  {icon:'fa-solid fa-kitchen-set',name:'Microwave (1200W)',w:1200,h:0.5,qty:1,timeOfDay:'day'},
-  {icon:'fa-solid fa-shirt',name:'Washing machine (500W)',w:500,h:1,qty:1,timeOfDay:'day'},
-  {icon:'fa-solid fa-shirt',name:'Washing machine (2500W)',w:2500,h:1,qty:1,timeOfDay:'day'},
-  {icon:'fa-solid fa-plug',name:'Water pump (750W)',w:750,h:3,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-kitchen-set',name:'Microwave (1200W)',w:1200,h:0.5,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-shirt',name:'Washing machine (500W)',w:500,h:1,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-shirt',name:'Washing machine (2500W)',w:2500,h:1,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-plug',name:'Water pump (750W)',w:750,h:3,qty:1,timeOfDay:'both'},
   {icon:'fa-solid fa-video',name:'CCTV system (80W)',w:80,h:24,qty:1,timeOfDay:'both'},
-  {icon:'fa-solid fa-temperature-half',name:'Shower pump (400W)',w:400,h:0.5,qty:1,timeOfDay:'day'},
-  {icon:'fa-solid fa-print',name:'Printer (400W)',w:400,h:1,qty:1,timeOfDay:'day'},
+  {icon:'fa-solid fa-temperature-half',name:'Shower pump (400W)',w:400,h:0.5,qty:1,timeOfDay:'both'},
+  {icon:'fa-solid fa-print',name:'Printer (400W)',w:400,h:1,qty:1,timeOfDay:'both'},
   {icon:'fa-solid fa-wind',name:'Standing fan (50W)',w:50,h:8,qty:1,timeOfDay:'both'},
 ];
 
 let appliances=[];
 let qty=1;
 
-function stepQty(d){qty=Math.max(1,Math.min(20,qty+d));document.getElementById('qty-val').textContent=qty}
+function stepQty(d){
+  qty=Math.max(1,Math.min(20,qty+d));
+  document.getElementById('qty-val').textContent=qty;
+}
 
 const pg=document.getElementById('presetGrid');
 presets.forEach(p=>{
@@ -1023,34 +1012,48 @@ presets.forEach(p=>{
 });
 
 function quickAdd(p){
-  const exist=appliances.find(a=>a.name===p.name && a.timeOfDay === p.timeOfDay);
-  if(exist){exist.qty+=1;}else{appliances.push({...p,qty:p.qty||1});}
+  const exist=appliances.find(a=>a.name===p.name);
+  if(exist){
+    exist.qty+=1;
+  }else{
+    appliances.push({...p,qty:p.qty||1});
+  }
   render();
 }
 
 function addAppliance(){
-  const name=document.getElementById('inp-name').value.trim();
-  const watt=parseFloat(document.getElementById('inp-watt').value);
-  const hrs=parseFloat(document.getElementById('inp-hrs').value);
-  const timeOfDay=document.getElementById('inp-time').value;
+  const nameInp=document.getElementById('inp-name');
+  const wattInp=document.getElementById('inp-watt');
+  const hrsInp=document.getElementById('inp-hrs');
+  
+  const name=nameInp.value.trim();
+  const watt=parseFloat(wattInp.value);
+  const hrs=parseFloat(hrsInp.value);
+  const timeOfDay='both';
+  
   if(!name||!watt||!hrs||watt<=0||hrs<=0||hrs>24){
-    document.getElementById('inp-name').style.borderColor='#E24B4A';
-    document.getElementById('inp-watt').style.borderColor='#E24B4A';
-    document.getElementById('inp-hrs').style.borderColor='#E24B4A';
+    nameInp.style.borderColor='#E24B4A';
+    wattInp.style.borderColor='#E24B4A';
+    hrsInp.style.borderColor='#E24B4A';
     return;
   }
-  document.getElementById('inp-name').style.borderColor='';
-  document.getElementById('inp-watt').style.borderColor='';
-  document.getElementById('inp-hrs').style.borderColor='';
+  nameInp.style.borderColor='';
+  wattInp.style.borderColor='';
+  hrsInp.style.borderColor='';
+  
   const icon=guessIcon(name);
-  const exist=appliances.find(a=>a.name.toLowerCase()===name.toLowerCase() && a.timeOfDay === timeOfDay);
-  if(exist){exist.qty+=qty;}
-  else{appliances.push({icon,name,w:watt,h:hrs,qty,timeOfDay});}
-  document.getElementById('inp-name').value='';
-  document.getElementById('inp-watt').value='';
-  document.getElementById('inp-hrs').value='';
-  document.getElementById('inp-time').value='both';
-  qty=1;document.getElementById('qty-val').textContent='1';
+  const exist=appliances.find(a=>a.name.toLowerCase()===name.toLowerCase());
+  if(exist){
+    exist.qty+=qty;
+  }else{
+    appliances.push({icon,name,w:watt,h:hrs,qty,timeOfDay});
+  }
+  
+  nameInp.value='';
+  wattInp.value='';
+  hrsInp.value='';
+  qty=1;
+  document.getElementById('qty-val').textContent='1';
   render();
 }
 
@@ -1075,7 +1078,10 @@ function render(){
   const empty=document.getElementById('emptyState');
   const panel=document.getElementById('resultsPanel');
   if(appliances.length===0){
-    list.innerHTML='';list.appendChild(empty);panel.style.display='none';return;
+    list.innerHTML='';
+    list.appendChild(empty);
+    panel.style.display='none';
+    return;
   }
   panel.style.display='block';
   let html='';
@@ -1083,13 +1089,12 @@ function render(){
     const kwh=+(a.w*a.h*a.qty/1000).toFixed(2);
     html+='<div class="app-item">'+
       '<span class="app-icon"><i class="'+a.icon+'"></i></span>'+
-      '<span class="app-name">'+a.name+'<div style="font-size:10px;color:var(--muted);margin-top:2px">'+
-      (a.timeOfDay==='day'?'Day usage':a.timeOfDay==='night'?'Night usage':'Day & Night')+'</div></span>'+
+      '<span class="app-name">'+a.name+'</span>'+
       '<span class="app-meta">'+a.w+'W x '+a.h+'h x '+a.qty+'</span>'+
       '<span class="app-kwh">'+kwh+' kWh</span>'+
       '<div class="qty-ctrl">'+
         '<button onclick="changeQty('+i+',-1)" aria-label="Less">&minus;</button>'+
-        '<span>'+a.qty+'</span>'+
+        '<span>'+a.qty+'</span>'+ 
         '<button onclick="changeQty('+i+',1)" aria-label="More">+</button>'+
       '</div>'+
       '<button class="del-btn" onclick="removeAppliance('+i+')" aria-label="Remove"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>'+
@@ -1106,33 +1111,31 @@ function changeQty(i,d){
 function removeAppliance(i){appliances.splice(i,1);render();}
 
 function updateResults(){
-  let dayKwh=0,nightKwh=0,dayPeakW=0,nightPeakW=0;
+  let dayKwh = 0;      
+  let nightKwh = 0;    
+  let dayPeakW = 0;    
+  let nightPeakW = 0;  
+  
   appliances.forEach(a=>{
-    const dailyKwh=a.w*a.h*a.qty/1000;
-    const peakWatts=a.w*a.qty;
-
-    if(a.timeOfDay==='day' || a.timeOfDay==='both'){
-      dayKwh+=dailyKwh;
-      dayPeakW+=peakWatts;
-    }
-    if(a.timeOfDay==='night' || a.timeOfDay==='both'){
-      // For night usage, assume consumption over 13 hours (6 PM to 7 AM)
-      // If an appliance runs for more than 13 hours, cap its contribution to nightKwh at 13 hours
-      nightKwh+=a.w * Math.min(a.h, 13) * a.qty / 1000; // Cap hours for night calculation
-      nightPeakW+=peakWatts;
-    }
+    const peakWatts = a.w * a.qty;
+    const halfHrs = a.h / 2;
+    dayKwh += (peakWatts * halfHrs) / 1000;
+    nightKwh += (peakWatts * Math.min(halfHrs, 13)) / 1000;
+    dayPeakW += peakWatts;
+    nightPeakW += peakWatts;
   });
 
-  const totalKwh=dayKwh+nightKwh;
-  const peakW=Math.max(dayPeakW,nightPeakW);
-  const monthlyKsh=Math.round(totalKwh*30*25);
+  const totalKwh = dayKwh + nightKwh;
+  const peakW = Math.max(dayPeakW, nightPeakW);
+  const monthlyKsh = Math.round(totalKwh * 30 * 25);
 
-  document.getElementById('res-total-kwh').textContent=totalKwh.toFixed(1)+' kWh/day';
-  document.getElementById('res-kwh').textContent=totalKwh.toFixed(1);
-  document.getElementById('res-peak').textContent=peakW.toLocaleString();
-  document.getElementById('res-monthly').textContent='Ksh '+monthlyKsh.toLocaleString();
+  document.getElementById('res-total-kwh').textContent = totalKwh.toFixed(1) + ' kWh/day';
+  document.getElementById('res-kwh').textContent = totalKwh.toFixed(1);
+  document.getElementById('res-peak').textContent = peakW.toLocaleString();
+  document.getElementById('res-monthly').textContent = 'Ksh ' + monthlyKsh.toLocaleString();
+  
   renderBars(totalKwh);
-  renderRecommendation(totalKwh,dayKwh,nightKwh,peakW,dayPeakW,nightPeakW);
+  renderRecommendation(totalKwh, dayKwh, nightKwh, peakW, dayPeakW, nightPeakW);
 }
 
 function renderBars(total){
@@ -1150,72 +1153,68 @@ function renderBars(total){
   document.getElementById('barChart').innerHTML=html;
 }
 
-function renderRecommendation(totalKwh,dayKwh,nightKwh,peakW,dayPeakW,nightPeakW){
-  const sunHours=5.5; // Average daily peak sun hours
-  const systemEff=0.75; // System efficiency
-  const autonomyDays=2; // Battery autonomy for 2 days
+function renderRecommendation(totalKwh, dayKwh, nightKwh, peakW, dayPeakW, nightPeakW){
+  const sunHours = 5.5; 
+  const systemEff = 0.75; 
+  const autonomyDays = 1.5; 
 
-  // Calculate panel size based on total daily consumption (ideally day load, but total for simpler calculation here)
-  const panelKw = +(totalKwh / (sunHours * systemEff)).toFixed(1);
+  const calculatedPanelKw = totalKwh / (sunHours * systemEff);
+  const calculatedInvKva = (peakW * 1.3) / 1000;
+  const calculatedBattKwh = nightKwh * autonomyDays;
 
-  // Inverter size: 1.5 times the higher of day or night peak demand
-  const invKva = Math.ceil(Math.max(dayPeakW, nightPeakW) * 1.5 / 1000);
-  
-  // Battery size: 2 times the total energy usage at night
-  const battKwh = +(nightKwh * autonomyDays).toFixed(1);
-
-  let tier,name,desc,panels,inv,batt,price,wa;
+  let tier, name, desc, basePanelsKw, baseInvKva, baseBattKwh, battType, price;
 
   if (totalKwh <= 3) {
     tier = 'Basic Backup';
-    name = '1.5-2kW Basic Backup System';
-    desc = 'Covers lights, fans, TV, Wi-Fi and phone charging. Ideal for 1-2 bedroom homes.';
-    panels = Math.max(2, Math.ceil(panelKw / 0.55)); // assuming 550W panels
-    inv = '1.5-2kVA Hybrid';
-    batt = '1-2kWh Gel';
+    name = '1.5kW Basic System';
+    desc = 'Perfect for powering lights, Wi-Fi, TVs, and charging electronics. Ideal for small apartments or basic setups.';
+    basePanelsKw = 0.6; 
+    baseInvKva = 1.5;
+    baseBattKwh = 1.2; 
+    battType = 'Gel / Lead-Acid';
     price = 'Ksh 85,000 - 150,000';
-    wa = '1.5kW Basic Backup';
-  } else if (totalKwh <= 8) {
+  } else if (totalKwh <= 9) {
     tier = 'Family Comfort';
-    name = '3-5kW Hybrid System';
-    desc = 'Handles fridge, microwave, washing machine and standard household loads.';
-    panels = Math.max(4, Math.ceil(panelKw / 0.55));
-    inv = '3-5kVA Hybrid';
-    batt = '3-5kWh LiFePO4';
+    name = '3kW - 5kW Hybrid System';
+    desc = 'Runs mid-sized residential setups smoothly including fridges, microwaves, entertainment units, and blender loads.';
+    basePanelsKw = 2.2;
+    baseInvKva = 5.0;
+    baseBattKwh = 4.8;
+    battType = 'LiFePO4 (Lithium)';
     price = 'Ksh 220,000 - 420,000';
-    wa = '3-5kW Family Comfort';
-  } else if (totalKwh <= 20) {
+  } else if (totalKwh <= 22) {
     tier = 'Off-Grid Ready';
-    name = '8-10kW Hybrid System';
-    desc = 'Full household independence with significant commercial load support.';
-    panels = Math.max(10, Math.ceil(panelKw / 0.55));
-    inv = '8-10kVA Hybrid';
-    batt = '10-15kWh LiFePO4';
+    name = '8kW - 10kW Premium Hybrid';
+    desc = 'Complete home energy independence. Easily supports heavy power draws like water pumps, washing machines, and dynamic kitchen equipment.';
+    basePanelsKw = 5.5;
+    baseInvKva = 10.0;
+    baseBattKwh = 10.0;
+    battType = 'LiFePO4 (Lithium)';
     price = 'Ksh 600,000 - 900,000';
-    wa = '8-10kW Off-Grid';
   } else {
-    tier = 'Commercial';
-    name = '15-50kW+ Commercial Array';
-    desc = 'Enterprise-grade system for high-consumption homes, businesses, schools or clinics.';
-    panels = Math.max(20, Math.ceil(panelKw / 0.55));
-    inv = '15-50kVA 3-Phase';
-    batt = '20kWh+ LiFePO4 Bank';
+    tier = 'Commercial Array';
+    name = '15kW+ High Capacity System';
+    desc = 'Tailored for large multi-unit estates, schools, medical facilities, or agricultural farms with heavy production loads.';
+    basePanelsKw = 16.5;
+    baseInvKva = 15.0;
+    baseBattKwh = 20.0;
+    battType = 'High-Density LiFePO4 Bank';
     price = 'Ksh 1,000,000+';
-    wa = 'Large Commercial system';
   }
 
-  // Adjust recommended inverter and battery based on calculated values if they are higher than the tier defaults
-  const finalInv = Math.max(invKva, parseFloat(inv)) + 'kVA Hybrid';
-  const finalBatt = Math.max(battKwh, parseFloat(batt)) + 'kWh LiFePO4';
-  const finalPanels = Math.max(panels, Math.ceil(panelKw / 0.55)); // Ensure panels are not less than calculated
+  const finalPanelsCount = Math.ceil(Math.max(calculatedPanelKw, basePanelsKw) / 0.55); 
+  const finalInvVal = Math.ceil(Math.max(calculatedInvKva, baseInvKva));
+  const finalBattVal = Math.max(calculatedBattKwh, baseBattKwh).toFixed(1);
 
+  const invTypeSuffix = (tier === 'Commercial Array') ? 'kW 3-Phase Inverter' : 'kW Hybrid Inverter';
 
-  const waMsg=encodeURIComponent(
-    'Hi, I used the SunPro load calculator.\n\n' +
-    'My total daily load is ' + totalKwh.toFixed(1) + ' kWh (Day: ' + dayKwh.toFixed(1) + ' kWh, Night: ' + nightKwh.toFixed(1) + ' kWh).\n' +
-    'Peak demand is ' + peakW + 'W (Day: ' + dayPeakW + 'W, Night: ' + nightPeakW + 'W).\n\n' +
-    'Recommended System: ' + name + '.\n' +
-    'Please send me a detailed quote!'
+  const waMsg = encodeURIComponent(
+    'Hi SunPro, I have calculated my load details:\n\n' +
+    '• Total Daily Consumption: ' + totalKwh.toFixed(1) + ' kWh/day\n' +
+    '  (Daytime: ' + dayKwh.toFixed(1) + ' kWh | Night Battery Draw: ' + nightKwh.toFixed(1) + ' kWh)\n' +
+    '• Peak System Demand: ' + peakW + ' Watts\n\n' +
+    'Recommended Configuration: ' + name + '\n' +
+    'Please provide an official quotation breakdown.'
   );
 
   document.getElementById('recPanel').innerHTML=''+
@@ -1223,17 +1222,17 @@ function renderRecommendation(totalKwh,dayKwh,nightKwh,peakW,dayPeakW,nightPeakW
     '<div class="sys-title">'+name+'</div>'+
     '<p class="sys-desc">'+desc+'</p>'+
     '<div class="spec-grid">'+
-      '<div class="spec-item"><div class="s-label">Solar panels</div><div class="s-val">' + finalPanels + 'x 550W Mono</div></div>'+
-      '<div class="spec-item"><div class="s-label">Inverter</div><div class="s-val">' + finalInv + '</div></div>'+
-      '<div class="spec-item"><div class="s-label">Battery storage</div><div class="s-val">' + finalBatt + '</div></div>'+
-      '<div class="spec-item"><div class="s-label">Est. daily yield</div><div class="s-val">' + (finalPanels * 0.55 * sunHours * systemEff).toFixed(1) + ' kWh</div></div>'+
+      '<div class="spec-item"><div class="s-label">Solar panels</div><div class="s-val">' + finalPanelsCount + 'x 550W Mono</div></div>'+
+      '<div class="spec-item"><div class="s-label">Inverter Capacity</div><div class="s-val">' + finalInvVal + invTypeSuffix + '</div></div>'+
+      '<div class="spec-item"><div class="s-label">Battery Storage</div><div class="s-val">' + finalBattVal + ' kWh ' + battType + '</div></div>'+
+      '<div class="spec-item"><div class="s-label">Est. Daily Yield</div><div class="s-val">' + (finalPanelsCount * 0.55 * sunHours * systemEff).toFixed(1) + ' kWh</div></div>'+
     '</div>'+
     '<div class="price-row">'+
       '<span class="price-from">Estimated installed cost</span>'+
       '<span class="price-val">'+price+'</span>'+
     '</div>'+
     '<div style="font-size:12px;color:var(--muted);margin-top:10px;padding:8px;background:var(--surface);border-radius:10px;">'+
-      'Disclaimer: This is an estimate. Actual system size and cost may vary by up to 50% after a professional site assessment.'+
+      'Disclaimer: Technical estimates are subject to alteration following an on-site physical solar survey assessment.'+
     '</div>'+
     '<button class="wa-rec-btn" onclick="openWa(\''+waMsg+'\')">'+
       '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Get exact quote via WhatsApp'+
@@ -1262,10 +1261,12 @@ function importFromCalc(){
   const r=window._calcResult;
   document.getElementById('f-system').value=r.name+' - '+r.kwh.toFixed(1)+' kWh/day, peak '+r.peakW+'W';
   document.getElementById('calc-summary-msg').innerHTML='<strong style="color:var(--green)">Calculator result imported:</strong> '+r.name+' ('+r.kwh.toFixed(1)+' kWh/day). Your form has been pre-filled.';
-  document.getElementById('importBtn').innerHTML='<i class="fa-solid fa-check" style="font-size:15px" aria-hidden="true"></i> Imported';
-  document.getElementById('importBtn').style.background='var(--green-light)';
-  document.getElementById('importBtn').style.color='var(--green)';
-  document.getElementById('importBtn').style.borderColor='#97C459';
+  
+  const impBtn = document.getElementById('importBtn');
+  impBtn.innerHTML='<i class="fa-solid fa-check" style="font-size:15px" aria-hidden="true"></i> Imported';
+  impBtn.style.background='var(--green-light)';
+  impBtn.style.color='var(--green)';
+  impBtn.style.borderColor='#97C459';
 }
 
 function validate(){
@@ -1279,14 +1280,20 @@ function validate(){
   checks.forEach(([fid,eid,fn])=>{
     const el=document.getElementById(fid);
     const err=document.getElementById(eid);
-    if(!fn(el.value)){el.classList.add('err');err.style.display='block';ok=false;}
-    else{el.classList.remove('err');err.style.display='none';}
+    if(!fn(el.value)){
+      el.classList.add('err');
+      err.style.display='block';
+      ok=false;
+    }else{
+      el.classList.remove('err');
+      err.style.display='none';
+    }
   });
   return ok;
 }
 
 function getFormData(){
-  return{
+  return {
     name: document.getElementById('f-name').value,
     phone: document.getElementById('f-phone').value,
     email: document.getElementById('f-email').value||'—',
@@ -1303,13 +1310,14 @@ function getFormData(){
 
 async function submitLead(e){
   e.preventDefault();
-  if(!validate())return;
+  if(!validate()) return;
   const data=getFormData();
 
   try{
     fetch(GOOGLE_SHEETS_URL,{
       method:'POST',
       mode:'no-cors',
+      headers: { 'Content-Type': 'application/json' },
       body:JSON.stringify(data)
     });
   }catch(err){
@@ -1348,15 +1356,19 @@ function closeCalculatorPopup(){
 }
 
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape')closeCalculatorPopup();
+  if(e.key==='Escape') closeCalculatorPopup();
 });
 
 document.querySelectorAll('#leadsForm input, #leadsForm select').forEach(el=>{
-  el.addEventListener('input',()=>{el.classList.remove('err');const e=document.getElementById('e-'+el.id.replace('f-',''));if(e)e.style.display='none';});
+  el.addEventListener('input',()=>{
+    el.classList.remove('err');
+    const e=document.getElementById('e-'+el.id.replace('f-',''));
+    if(e) e.style.display='none';
+  });
 });
 
 document.getElementById('calculatorPopup').addEventListener('click',function(e){
-  if(e.target===this)closeCalculatorPopup();
+  if(e.target===this) closeCalculatorPopup();
 });
 </script>
 </body>
